@@ -2,7 +2,7 @@ const MAX_ROUNDS = 5;
 
 const GUESS_OPTIONS = ["Rock", "Paper", "Scissors"];
 
-const computerPlay = function () {
+const computerPlay =  () => {
     let computerGuess = Math.floor(Math.random() * GUESS_OPTIONS.length);
     return GUESS_OPTIONS[computerGuess];
 }
@@ -33,16 +33,16 @@ const getUserSelection = () => {
     }
 }
 
-const checkWinner = function (playerSelection, computerSelection) {
+const checkWinner = (playerSelection, computerSelection) => {
     if (playerSelection == GUESS_OPTIONS[0]) {
         switch (computerSelection) {
             case GUESS_OPTIONS[0]:
                 return "It's a draw";
             case GUESS_OPTIONS[1]:
-                computer_score++;
+                computerScore++;
                 return "Computer won!";
             case GUESS_OPTIONS[2]:
-                player_score++;
+                playerScore++;
                 return "Player won!";
             default:
                 return "Something went wrong 1!"
@@ -51,12 +51,12 @@ const checkWinner = function (playerSelection, computerSelection) {
     else if (playerSelection == GUESS_OPTIONS[1]) {
         switch (computerSelection) {
             case GUESS_OPTIONS[0]:
-                player_score++;
+                playerScore++;
                 return "Player won!";
             case GUESS_OPTIONS[1]:
                 return "It's a draw";
             case GUESS_OPTIONS[2]:
-                computer_score++;
+                computerScore++;
                 return "Computer won!";
             default:
                 return "Something went wrong 2!"
@@ -65,10 +65,10 @@ const checkWinner = function (playerSelection, computerSelection) {
     else if (playerSelection == GUESS_OPTIONS[2]) {
         switch (computerSelection) {
             case GUESS_OPTIONS[0]:
-                computer_score++;
+                computerScore++;
                 return "Computer won!";
             case GUESS_OPTIONS[1]:
-                player_score++;
+                playerScore++;
                 return "Player won!";
             case GUESS_OPTIONS[2]:
                 return "It's a draw";
@@ -81,32 +81,37 @@ const checkWinner = function (playerSelection, computerSelection) {
     }
 }
 
-const playRound = function () {
+const playRound = () => {
     let computerSelection = computerPlay();
     let userSelection = getUserSelection();
 
     console.log(`Player selected ${userSelection}, Computer selected ${computerSelection} and ${checkWinner(userSelection, computerSelection)}`);
 }
 
-const game = function () {
+const game = () => {
+    
     reset();
 
     for (let i = 0; i < MAX_ROUNDS; i++) {
         playRound();
     }
 
-    if (player_score > computer_score)
+    if (playerScore > computerScore) {
         alert("GAME OVER! PLAYER WON!");
-    else
+    } else if (playerScore < computerScore) {
         alert("GAME OVER! COMPUTER WON!");
+    } else {
+        alert("GAME OVER! IT'S A TIE!");
+    }
+
+    }
+
+const reset = () => {
+    playerScore = 0;
+    computerScore = 0;
 }
 
-const reset = function () {
-    player_score = 0;
-    computer_score = 0;
-}
-
-let player_score = 0;
-let computer_score = 0;
+let playerScore = 0;
+let computerScore = 0;
 
 game();
