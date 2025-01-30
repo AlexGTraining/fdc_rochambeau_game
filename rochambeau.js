@@ -85,11 +85,13 @@ const playRound = () => {
     let computerSelection = computerPlay();
     let userSelection = getUserSelection();
 
-    console.log(`Player selected ${userSelection}, Computer selected ${computerSelection} and ${checkWinner(userSelection, computerSelection)}`);
+    const roundResult = checkWinner(userSelection, computerSelection);
+    console.log(`Player selected ${userSelection}, Computer selected ${computerSelection} and ${roundResult}`);
+    alert(`Round Result:\nYou chose: ${userSelection}\nComputer chose: ${computerSelection}\n${roundResult}\n\nCurrent Score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
 }
 
 const game = () => {
-    
+
     reset();
 
     for (let i = 0; i < MAX_ROUNDS; i++) {
