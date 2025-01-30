@@ -1,29 +1,36 @@
 const MAX_ROUNDS = 5;
 
-const GUESS_OPTIONS = new Array("Rock", "Paper", "Scisors");
-Object.freeze(GUESS_OPTIONS);
+const GUESS_OPTIONS = ["Rock", "Paper", "Scissors"];
 
 const computerPlay = function () {
-    let guess = Math.floor(Math.random() * GUESS_OPTIONS.length);
-    return GUESS_OPTIONS[guess];
+    let computerGuess = Math.floor(Math.random() * GUESS_OPTIONS.length);
+    return GUESS_OPTIONS[computerGuess];
 }
 
-const getUserSelection = function () {
+const getUserSelection = () => {
+    
     let userInput;
     let userAttempts = 0;
-    while (true) {
 
-        if (userAttempts == 0)
-            userInput = prompt("What will it be? Enter your selection (Rock, Paper or Scisors)");
-        else
-            userInput = prompt("Hmm.. I didn't understand that last input. Try again? Enter your selection (Rock, Paper or Scisors)");
+    while(true) {
 
-        if (userInput === GUESS_OPTIONS[0] || userInput === GUESS_OPTIONS[1] || userInput === GUESS_OPTIONS[2])
-            break;
+        const promptMessage = userAttempts === 0 ? "What will it be? Enter your selection (Rock, Paper, Scissors)" : `Invalid input! Please enter "Rock", "Paper", or "Scissors"`;
 
-        userAttempts++;
+        userInput = prompt(promptMessage);
+
+        if(userInput === null) {
+            throw new Error('Game cancelled by user');
+        }
+
+        userInput = userInput.trim().toLowerCase();
+        const validOptions = GUESS_OPTIONS.map(option => option.toLowerCase())
+
+        if (validOptions.includes(userInput)) {
+            return GUESS_OPTIONS[validOptions.indexOf(userInput)]
+        }
+
+        userAttempts ++;
     }
-    return userInput;
 }
 
 const checkWinner = function (playerSelection, computerSelection) {
