@@ -15,16 +15,17 @@ const getUserSelection = () => {
     let userInput;
     let userAttempts = 0;
 
-    while(true) {
+    while (true) {
         const taunt = ALIEN_TAUNTS[Math.floor(Math.random() * ALIEN_TAUNTS.length)];
-        const promptMessage = userAttempts === 0 ? 
-            `${taunt}\nChoose your weapon (Rock, Paper, Scissors)` : 
+        const promptMessage = userAttempts === 0 ?
+            `${taunt}\nChoose your weapon (Rock, Paper, Scissors)` :
             `Invalid choice, Earth defender! Choose Rock, Paper, or Scissors`;
 
         userInput = prompt(promptMessage);
 
-        if(userInput === null) {
-            throw new Error('Earth surrenders!');
+        if (userInput === null) {
+            alert('Earth surrenders!');
+            return null;
         }
 
         userInput = userInput.trim().toLowerCase();
@@ -66,21 +67,36 @@ const checkWinner = function (playerSelection, computerSelection) {
 const playRound = function () {
     let alienChoice = computerPlay();
     let playerChoice = getUserSelection();
+
+    if (playerChoice == null)
+        return null;
+
     const result = checkWinner(playerChoice, alienChoice);
-    
+
     alert(`Battle Result:\nEarth chose: ${playerChoice}\nAlien chose: ${alienChoice}\n${result}\n\nScore:\nEarth: ${playerScore}\nAlien: ${computerScore}`);
+
+    return 'continue';
 }
 
-const askForRestart = function() {
+const askForRestart = function () {
     return confirm("Play again to defend Earth?");
 }
 
 const game = function () {
     do {
         alert("🛸 ALIEN CHALLENGE 🛸\n\nAn alien has challenged Earth to Space Rock-Paper-Scissors!\nDefend your planet in this 5-round battle!");
-        
+
         reset();
-        for (let i = 0; i < MAX_ROUNDS; i++) playRound();
+
+        let playerQuit = false;
+        for (let i = 0; i < MAX_ROUNDS; i++) {
+            playerQuit = playRound() == null;
+            if (playerQuit)
+                break;
+        }
+
+        if (playerQuit)
+            continue;
 
         if (playerScore > computerScore) {
             alert("Victory! Earth is saved! 🌍✨");
@@ -90,7 +106,7 @@ const game = function () {
             alert("A cosmic draw! The alien demands a rematch! 🌠");
         }
     } while (askForRestart());
-    
+
     alert("Thanks for defending Earth! 🌎");
 }
 
