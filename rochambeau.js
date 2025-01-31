@@ -1,114 +1,100 @@
 const MAX_ROUNDS = 5;
-
 const GUESS_OPTIONS = ["Rock", "Paper", "Scissors"];
 
-const computerPlay =  () => {
-    let computerGuess = Math.floor(Math.random() * GUESS_OPTIONS.length);
-    return GUESS_OPTIONS[computerGuess];
+const ALIEN_TAUNTS = [
+    "Earthling, your primitive choices amuse me! 👽",
+    "My quantum brain sees all possibilities! 🌌",
+    "Is this really how you defend your planet? 🛸"
+];
+
+const computerPlay = function () {
+    return GUESS_OPTIONS[Math.floor(Math.random() * GUESS_OPTIONS.length)];
 }
 
 const getUserSelection = () => {
-    
     let userInput;
     let userAttempts = 0;
 
     while(true) {
-
-        const promptMessage = userAttempts === 0 ? "What will it be? Enter your selection (Rock, Paper, Scissors)" : `Invalid input! Please enter "Rock", "Paper", or "Scissors"`;
+        const taunt = ALIEN_TAUNTS[Math.floor(Math.random() * ALIEN_TAUNTS.length)];
+        const promptMessage = userAttempts === 0 ? 
+            `${taunt}\nChoose your weapon (Rock, Paper, Scissors)` : 
+            `Invalid choice, Earth defender! Choose Rock, Paper, or Scissors`;
 
         userInput = prompt(promptMessage);
 
         if(userInput === null) {
-            throw new Error('Game cancelled by user');
+            throw new Error('Earth surrenders!');
         }
 
         userInput = userInput.trim().toLowerCase();
-        const validOptions = GUESS_OPTIONS.map(option => option.toLowerCase())
+        const validOptions = GUESS_OPTIONS.map(option => option.toLowerCase());
 
         if (validOptions.includes(userInput)) {
-            return GUESS_OPTIONS[validOptions.indexOf(userInput)]
+            return GUESS_OPTIONS[validOptions.indexOf(userInput)];
         }
 
-        userAttempts ++;
+        userAttempts++;
     }
 }
 
-const checkWinner = (playerSelection, computerSelection) => {
+const checkWinner = function (playerSelection, computerSelection) {
     if (playerSelection == GUESS_OPTIONS[0]) {
         switch (computerSelection) {
-            case GUESS_OPTIONS[0]:
-                return "It's a draw";
-            case GUESS_OPTIONS[1]:
-                computerScore++;
-                return "Computer won!";
-            case GUESS_OPTIONS[2]:
-                playerScore++;
-                return "Player won!";
-            default:
-                return "Something went wrong 1!"
+            case GUESS_OPTIONS[0]: return "Cosmic stalemate! 🌠";
+            case GUESS_OPTIONS[1]: computerScore++; return "The alien's Paper crushes your Rock! 📜";
+            case GUESS_OPTIONS[2]: playerScore++; return "Your Rock smashes alien Scissors! 🚀";
         }
     }
     else if (playerSelection == GUESS_OPTIONS[1]) {
         switch (computerSelection) {
-            case GUESS_OPTIONS[0]:
-                playerScore++;
-                return "Player won!";
-            case GUESS_OPTIONS[1]:
-                return "It's a draw";
-            case GUESS_OPTIONS[2]:
-                computerScore++;
-                return "Computer won!";
-            default:
-                return "Something went wrong 2!"
+            case GUESS_OPTIONS[0]: playerScore++; return "Your Paper wraps the alien Rock! 🌍";
+            case GUESS_OPTIONS[1]: return "Parallel dimensions collide! Draw! ⭐";
+            case GUESS_OPTIONS[2]: computerScore++; return "Alien Scissors slice your Paper! ✨";
         }
     }
     else if (playerSelection == GUESS_OPTIONS[2]) {
         switch (computerSelection) {
-            case GUESS_OPTIONS[0]:
-                computerScore++;
-                return "Computer won!";
-            case GUESS_OPTIONS[1]:
-                playerScore++;
-                return "Player won!";
-            case GUESS_OPTIONS[2]:
-                return "It's a draw";
-            default:
-                return "Something went wrong 3!"
+            case GUESS_OPTIONS[0]: computerScore++; return "Alien Rock pulverizes your Scissors! 💫";
+            case GUESS_OPTIONS[1]: playerScore++; return "Your Scissors cut through alien Paper! 🛸";
+            case GUESS_OPTIONS[2]: return "Quantum entanglement! Draw! 🌌";
         }
     }
-    else {
-        return "Something went wrong 4!"
-    }
+    return "Space-time anomaly detected!";
 }
 
-const playRound = () => {
-    let computerSelection = computerPlay();
-    let userSelection = getUserSelection();
-
-    const roundResult = checkWinner(userSelection, computerSelection);
-    console.log(`Player selected ${userSelection}, Computer selected ${computerSelection} and ${roundResult}`);
-    alert(`Round Result:\nYou chose: ${userSelection}\nComputer chose: ${computerSelection}\n${roundResult}\n\nCurrent Score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`);
+const playRound = function () {
+    let alienChoice = computerPlay();
+    let playerChoice = getUserSelection();
+    const result = checkWinner(playerChoice, alienChoice);
+    
+    alert(`Battle Result:\nEarth chose: ${playerChoice}\nAlien chose: ${alienChoice}\n${result}\n\nScore:\nEarth: ${playerScore}\nAlien: ${computerScore}`);
 }
 
-const game = () => {
+const askForRestart = function() {
+    return confirm("Play again to defend Earth?");
+}
 
-    reset();
+const game = function () {
+    do {
+        alert("🛸 ALIEN CHALLENGE 🛸\n\nAn alien has challenged Earth to Space Rock-Paper-Scissors!\nDefend your planet in this 5-round battle!");
+        
+        reset();
+        for (let i = 0; i < MAX_ROUNDS; i++) playRound();
 
-    for (let i = 0; i < MAX_ROUNDS; i++) {
-        playRound();
-    }
+        if (playerScore > computerScore) {
+            alert("Victory! Earth is saved! 🌍✨");
+        } else if (playerScore < computerScore) {
+            alert("Defeat! The alien laughs in binary! 👽");
+        } else {
+            alert("A cosmic draw! The alien demands a rematch! 🌠");
+        }
+    } while (askForRestart());
+    
+    alert("Thanks for defending Earth! 🌎");
+}
 
-    if (playerScore > computerScore) {
-        alert("GAME OVER! PLAYER WON!");
-    } else if (playerScore < computerScore) {
-        alert("GAME OVER! COMPUTER WON!");
-    } else {
-        alert("GAME OVER! IT'S A TIE!");
-    }
-
-    }
-
-const reset = () => {
+const reset = function () {
     playerScore = 0;
     computerScore = 0;
 }
