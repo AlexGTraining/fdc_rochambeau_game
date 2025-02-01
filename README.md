@@ -1,5 +1,3 @@
-game preview link: https://alexgtraining.github.io/fdc_rochambeau_game
-
 Rochambeau (Rock-Paper-Scissors) Game
 
 Introduction
