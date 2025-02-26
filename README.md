@@ -16,7 +16,7 @@ It represents 1 of 2 main assignments of the 3rd week, out of the 4 weeks of thi
       - game
         - create loop with 5 round
         - print win/lose message after the rounds en
-    - Work with assigned colleagues as a team
+  - Work with assigned colleagues as a team
 
 <h3>Technologies allowed</h3>
 
