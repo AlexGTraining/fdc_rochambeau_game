@@ -1,24 +1,33 @@
-Rochambeau (Rock-Paper-Scissors) Game
+<h2>Discalimer</h2>
 
-Introduction
-Welcome to the Rochambeau Game, a classic Rock-Paper-Scissors game where you can play against the computer. It's a fun and simple game to test your luck and strategy.
+This project was created as an assignment for the Frontend Development Training Course organized by Kreativestorm.
 
-Demo
-Check out the live demo https://alexgtraining.github.io/fdc_rochambeau_game/
+<h2>Requirements</h2>
 
-Features  
-- Classic Rock-Paper-Scissors gameplay
-- Interactive user interface
-- Random computer moves
+<h3>Assignment specifications</h3>
 
-How to Play
-- Open the game from the demo link.
-- Choose your move: Rock, Paper, or Scissors.
-- The computer will randomly choose its move.
+  - Create a Rock-Paper-Scissors game using only alert / prompt / confirm windows
+  - Create the following functions:
+      - computerPlay
+        - returns ‘Rock’, ‘Paper’ or ‘Scissors’
+      - playRound
+        - take two parameters - the playerSelection and computerSelection - and then return a string that declares the winner of the round like so: "You Lose! Paper beats Rock"
+      - game
+        - create loop with 5 round
+        - print win/lose message after the rounds en
+    - Work with assigned colleagues as a team
 
-The game will display the result: Win, Lose, or Draw.
-Play again to improve your strategy and luck!
+<h3>Technologies allowed</h3>
 
-Technologies Used
-- HTML
-- JavaScript
+  - HTML
+  - JavaScript
+
+<h2>Implementation</h2>
+
+<h3>Preview</h3>
+
+https://alexgtraining.github.io/fdc_rochambeau_game/
+
+<h3>Considerations</h3>
+
+  - Engaging game backstory and messaging
